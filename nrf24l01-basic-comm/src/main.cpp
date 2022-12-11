@@ -14,7 +14,8 @@ uint8_t bufferTx[payloadSize + 1] = "12345";
 uint16_t failuresTx = 0;
 #else
 uint8_t rxAddress[6] = "1Node";
-char bufferRx[payloadSize + 1] = "";
+uint8_t bufferRx[payloadSize + 1] = {0};
+char burfferRxPrint[payloadSize + 1] = "";
 uint16_t counterRx;
 #endif
 
@@ -63,8 +64,10 @@ void loop() {
 #else
   if (radio.available()) {
     radio.read(bufferRx, payloadSize);
+    snprintf(burfferRxPrint, payloadSize + 1, "%s", bufferRx);
+
     Serial.print(F("Received Data: "));
-    Serial.print(bufferRx);
+    Serial.print(burfferRxPrint);
     Serial.print(F(" - "));
     Serial.println(counterRx++);
   }
